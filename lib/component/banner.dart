@@ -10,6 +10,18 @@ class BannerSlider extends StatefulWidget {
 }
 
 class _BannerSliderState extends State<BannerSlider> {
+
+  void initState() {
+    super.initState();
+    _fetchMovies();
+  }
+
+  Future<void> _fetchMovies() async {
+    final List<Movie>? movies = await provider.fetchNowPlayingMovies();
+    setState(() {
+      _movies = movies!;
+    });
+  }
   int _currentIndex = 0;
   final List<List<String>> _imageList = [
     ['assets/banner/ChiaKhoaTramTy.jpg', 'assets/banner/ChiMeHocYeu2.jpg'],

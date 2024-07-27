@@ -28,6 +28,9 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  http: ^0.13.5
+  provider: ^6.0.5
+  cached_network_image: ^3.2.3
   dots_indicator: ^2.1.0
   carousel_slider: ^4.2.1
   flutter:
