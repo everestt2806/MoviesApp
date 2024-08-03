@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movies_app/component/MovieDetail.dart';
 import 'package:provider/provider.dart';
 import 'package:movies_app/Models/MovieProvider.dart';
-import 'package:movies_app/Models/Movie.dart';// Giả sử bạn đã tạo file này
+import 'package:movies_app/Models/Movie.dart';
 
 class MovieList extends StatefulWidget {
   @override
@@ -30,7 +30,6 @@ class _MovieListState extends State<MovieList> {
   Widget build(BuildContext context) {
     return Consumer<MovieProvider>(
       builder: (context, movieProvider, child) {
-        print(_movies);
         if (_movies.isEmpty) {
           return Center(child: CircularProgressIndicator());
         }
@@ -38,7 +37,7 @@ class _MovieListState extends State<MovieList> {
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(3.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -82,17 +81,16 @@ class _MovieListState extends State<MovieList> {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => MovieDetail(id: id,)),
+              MaterialPageRoute(builder: (context) => MovieDetailPage(id: id,)),
             );
           },
           child: Card(
-            margin: EdgeInsets.all(8.0),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  width: 100,
-                  height: 150,
+                  width: 80,
+                  height: 120,
                   child: Image.network(
                     'https://image.tmdb.org/t/p/w500${movie.posterPath}',
                     fit: BoxFit.cover,

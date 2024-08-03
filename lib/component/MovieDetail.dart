@@ -1,115 +1,150 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/Db/DbService.dart';
 import 'package:movies_app/Models/Movie.dart';
+import 'package:movies_app/Db/DbService.dart';
 
-class MovieDetail extends StatefulWidget {
-  final int? id;
+class MovieDetailPage extends StatefulWidget {
+  final int id;
 
-  const MovieDetail({required this.id});
+  MovieDetailPage({
+    required this.id,
+  });
 
   @override
-  State<MovieDetail> createState() => _MovieDetailState();
+  State<MovieDetailPage> createState() => _MovieDetailPageState();
 }
 
-class _MovieDetailState extends State<MovieDetail> {
-  DbService _dbService = DbService();
-  late Movie mv = Movie.defaultConstructor();
+class _MovieDetailPageState extends State<MovieDetailPage> {
+  late Movie _movie = Movie.defaultConstructor();
+  DbService _apiService = DbService();
+  bool _isLoading = true;  // Biến để kiểm soát trạng thái tải dữ liệu
 
   @override
   void initState() {
     super.initState();
-    _fetchMovies();
+    fetchMovieDetail(widget.id);
   }
 
-  Future<void> _fetchMovies() async {
-    final Movie movie = await _dbService.getMovieDetails(widget.id!);
-    setState(() {
-      mv = movie;
-    });
+  void fetchMovieDetail(int id) async {
+    final Movie? mv = await _apiService.getMovieDetail(id);
+    if (mv != null) {
+      setState(() {
+        _movie = mv;
+        _isLoading = false;  // Đánh dấu rằng dữ liệu đã được tải
+      });
+    } else {
+      print("Movie not found");
+      setState(() {
+        _isLoading = false;  // Ngừng trạng thái tải ngay cả khi không tìm thấy phim
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(16),
-      child: Row(
-        children: [
-          Flexible(
-            flex: 2,
-            child: mv.posterPath.isNotEmpty
-                ? Image.network(
-                    'https://image.tmdb.org/t/p/w500${mv.posterPath}',
-                    fit: BoxFit.cover,
-                    loadingBuilder: (BuildContext context, Widget child,
-                        ImageChunkEvent? loadingProgress) {
-                      if (loadingProgress == null) {
-                        return child;
-                      }
-                      return Center(
-                        child: CircularProgressIndicator(
-                          value: loadingProgress.expectedTotalBytes != null
-                              ? loadingProgress.cumulativeBytesLoaded /
-                                  (loadingProgress.expectedTotalBytes ?? 1)
-                              : null,
-                        ),
-                      );
-                    },
-                    errorBuilder: (BuildContext context, Object error,
-                        StackTrace? stackTrace) {
-                      return Icon(
-                        Icons.error,
-                        color: Colors.red,
-                        size: 50,
-                      );
-                    },
-                  )
-                : Icon(
-                    Icons.image,
-                    color: Colors.grey,
-                    size: 50,
-                  ),
+    return Scaffold(
+      body: _isLoading  // Kiểm tra trạng thái tải dữ liệu
+          ? Center(child: CircularProgressIndicator())  // Hiển thị chỉ báo tiến trình khi đang tải dữ liệu
+          : CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            expandedHeight: 300.0,
+            floating: false,
+            pinned: true,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text(_movie.title),
+              background: Image.network(
+                'https://image.tmdb.org/t/p/w500${_movie.backdropPath}',
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
-          SizedBox(width: 16),
-          Expanded(
-            flex: 3,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  mv.title,
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: Image.network(
+                          'https://image.tmdb.org/t/p/w500${_movie.posterPath}',
+                          height: 180,
+                        ),
+                      ),
+                      SizedBox(width: 16),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              'Release Date: ${_movie.releaseDate}',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(height: 8),
+                            Row(
+                              children: <Widget>[
+                                Icon(Icons.star, color: Colors.amber),
+                                Text(' ${_movie.voteAverage}/10'),
+                              ],
+                            ),
+                            SizedBox(height: 16),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                ElevatedButton.icon(
+                                  icon: Icon(Icons.play_arrow),
+                                  label: Text('Watch'),
+                                  onPressed: () {},
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.red,
+                                  ),
+                                ),
+                                ElevatedButton.icon(
+                                  icon: Icon(Icons.file_download),
+                                  label: Text('Download'),
+                                  onPressed: () {},
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.blue,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                SizedBox(height: 5),
-                Text(
-                  mv.genreIds.join(', '),
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
-                SizedBox(height: 5),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {},
-                      child: Text('Xem phim'),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {},
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(Icons.favorite, size: 24),
-                          SizedBox(width: 8),
-                          Text('Yêu thích'),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        'Overview',
+                        style: Theme.of(context).textTheme.headlineMedium,
+                      ),
+                      SizedBox(height: 8),
+                      Text(_movie.overview),
+                      SizedBox(height: 16),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          ElevatedButton.icon(
+                            icon: Icon(Icons.favorite_border),
+                            label: Text('Add to Favorites'),
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.pink,
+                            ),
+                          ),
                         ],
                       ),
-                    ),
-                  ],
-                )
+                    ],
+                  ),
+                ),
               ],
             ),
           ),

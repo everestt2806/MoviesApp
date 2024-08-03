@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:movies_app/Models/MovieProvider.dart';
+import 'package:movies_app/Models/Movie.dart';
 
 class BannerSlider extends StatefulWidget {
   const BannerSlider({super.key});
@@ -10,11 +12,14 @@ class BannerSlider extends StatefulWidget {
 }
 
 class _BannerSliderState extends State<BannerSlider> {
-
+  @override
   void initState() {
     super.initState();
     _fetchMovies();
   }
+
+  late List<Movie> _movies = [];
+  MovieProvider provider = MovieProvider();
 
   Future<void> _fetchMovies() async {
     final List<Movie>? movies = await provider.fetchNowPlayingMovies();
@@ -22,11 +27,8 @@ class _BannerSliderState extends State<BannerSlider> {
       _movies = movies!;
     });
   }
+
   int _currentIndex = 0;
-  final List<List<String>> _imageList = [
-    ['assets/banner/ChiaKhoaTramTy.jpg', 'assets/banner/ChiMeHocYeu2.jpg'],
-    ['assets/banner/MyHeroAcademiaWorldHeroesMission.jpg', 'assets/banner/DoctorStrangeInTheMultiverseOfMadness.jpg'],
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -34,39 +36,33 @@ class _BannerSliderState extends State<BannerSlider> {
       children: [
         CarouselSlider(
           options: CarouselOptions(
-            height: 350.0,
+            height: 300.0,
+            viewportFraction: 1.0,
+            enlargeCenterPage: false,
+            autoPlay: true,
+            autoPlayInterval: Duration(seconds: 3),
+            autoPlayAnimationDuration: Duration(milliseconds: 800),
+            autoPlayCurve: Curves.fastOutSlowIn,
             onPageChanged: (index, reason) {
               setState(() {
                 _currentIndex = index;
               });
             },
           ),
-          items: _imageList.map((imagePair) {
+          items: _movies.map((movie) {
             return Builder(
               builder: (BuildContext context) {
                 return Container(
                   width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.symmetric(horizontal: 3.0),
-                  child: Row(
-                    children: imagePair.map((imageName) {
-                      return Expanded(
-                        child: Container(
-                          margin: EdgeInsets.symmetric(horizontal: 3.0),
-                          decoration: BoxDecoration(
-                            color: Colors.grey,
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10.0),
-                            child: Image(
-                              image: AssetImage(imageName),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                      );
-                    }).toList(),
+                  decoration: BoxDecoration(
+                    color: Colors.grey,
                   ),
+                  child: movie.backdropPath != null
+                      ? Image.network(
+                    'https://image.tmdb.org/t/p/w500${movie.backdropPath}',
+                    fit: BoxFit.cover,
+                  )
+                      : Center(child: Text('No image available')),
                 );
               },
             );
@@ -74,7 +70,7 @@ class _BannerSliderState extends State<BannerSlider> {
         ),
         SizedBox(height: 5),
         DotsIndicator(
-          dotsCount: _imageList.length,
+          dotsCount: _movies.length,
           position: _currentIndex.toDouble(),
           decorator: DotsDecorator(
             size: const Size.square(9.0),

@@ -11,15 +11,36 @@ class DbService {
     return json.decode(response.body);
   }
 
-  Future<dynamic> searchKeyword(String query) async {
+  Future<List<Movie>> searchKeyword(String query) async {
     final response = await http.get(Uri.parse('$baseUrl/search/keyword?api_key=$apiKey&page=1&query=$query'));
     return json.decode(response.body);
   }
 
-  Future<Movie> getMovieDetails(int movieId) async {
-    final response = await http.get(Uri.parse('$baseUrl/movie/$movieId?api_key=$apiKey&append_to_response=videos'));
-    return json.decode(response.body);
+  Future<Movie?> getMovieDetail(int id) async {
+    final url = '$baseUrl/movie/$id?api_key=$apiKey&append_to_response=videos';
+
+    final response = await http.get(Uri.parse(url));
+
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+
+    if (response.statusCode == 200) {
+      try {
+        final data = jsonDecode(response.body);
+        return Movie.fromJson(data);
+      } on FormatException catch (e) {
+        print('Error parsing JSON: $e');
+        return null;
+      } catch (e) {
+        print('Error fetching movie detail: $e');
+        return null;
+      }
+    } else {
+      print('Failed to load movie detail (Status code: ${response.statusCode})');
+      return null;
+    }
   }
+
 
   Future<List<Movie>?> getNowPlayingMovies() async {
     final response = await http.get(
@@ -30,7 +51,6 @@ class DbService {
       try {
         final data = jsonDecode(response.body);
         final results = data['results'] as List<dynamic>?;
-        print(results?[0]['id'].toString());
         return results?.map((movieData) => Movie.fromJson(movieData)).toList();
       } on FormatException catch (e) {
         print('Error parsing JSON: $e');
