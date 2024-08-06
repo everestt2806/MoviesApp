@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_weather_bg_null_safety/flutter_weather_bg.dart';
 import 'package:provider/provider.dart';
 import 'package:movies_app/Models/MovieProvider.dart';
 import 'package:movies_app/component/MovieList.dart';
 import 'package:movies_app/component/Banner.dart';
 import 'package:movies_app/component/SearchBar.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
+import 'package:flutter_weather_bg_null_safety/bg/weather_bg.dart';
 
 void main() {
   runApp(
@@ -52,8 +54,6 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,16 +61,16 @@ class _HomeScreenState extends State<HomeScreen> {
         title: GradientText(
           _titles[_selectedIndex],
           colors: [
-            Color(0xFF00c6ff),
-            Color(0xFF0072ff),
-            Color(0xFF6a82fb),
-            Color(0xFFFC466B),
+            Color(0xFF00BFFF),  // Deep Sky Blue
+            Color(0xFF10AAF7),  // 25% gradient
+            Color(0xFF2094F0),  // 50% gradient
+            Color(0xFF317FE8),  // 75% gradient
+            Color(0xFF4169E1),  // Royal Blue
           ],
           style: TextStyle(
             fontFamily: 'Calistoga',
             fontSize: 35,
             fontWeight: FontWeight.bold,
-
           ),
         ),
         centerTitle: true,
@@ -78,20 +78,34 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 0,
       ),
       extendBodyBehindAppBar: true,
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Color(0xFFff7e5f),
-              Color(0xFFfeb47b),
-              Color(0xFFFFE3AC)
-            ],
+      body: Stack(
+      fit: StackFit.expand,
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Color(0xFF4E54C8),
+                Color(0xFF8F94FB),
+              ],
+            ),
           ),
         ),
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
+        WeatherBg(
+          weatherType: WeatherType.heavySnow,
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+        ),
+        SafeArea(
+          child: Padding(
+            padding: EdgeInsets.only(top: 1), // Thêm padding ở đây
+            child: _widgetOptions.elementAt(_selectedIndex),
+          ),
+        ),
+      ],
+    ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
@@ -126,26 +140,30 @@ class _HomeScreenState extends State<HomeScreen> {
 class HomeContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          SizedBox(height: 50),
-          Container(
-            child: BannerSlider(),
+    return Column(
+      children: [
+        BannerSlider(), // Cố định ở đầu
+        Expanded(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  height: 1000, // Đặt chiều cao cố định
+                  child: MovieList(),
+                ),
+                // Thêm các widget khác ở đây nếu cần
+              ],
+            ),
           ),
-          Container(
-            height: 500, // Hoặc một giá trị phù hợp
-            child: MovieList(),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
-class SearchContent extends StatelessWidget {
+  class SearchContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(child:  SearchBar());
+    return SingleChildScrollView(child: SearchBar());
   }
 }
 
