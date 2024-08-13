@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/Models/Movie.dart';
-import 'package:movies_app/Db/DbService.dart';
+import 'package:movies_app/models/movie.dart';
+import 'package:movies_app/services/api_service.dart';
 
 class MovieDetailPage extends StatefulWidget {
   final int id;
@@ -15,7 +15,7 @@ class MovieDetailPage extends StatefulWidget {
 
 class _MovieDetailPageState extends State<MovieDetailPage> {
   late Movie _movie = Movie.defaultConstructor();
-  DbService _apiService = DbService();
+  APIService _apiService = APIService();
   bool _isLoading = true;  // Biến để kiểm soát trạng thái tải dữ liệu
 
   @override

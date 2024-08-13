@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:movies_app/Models/Movie.dart';
+import 'package:movies_app/models/movie.dart';
 
-class DbService {
+class APIService {
   final String apiKey = '438ccfd2ebf05c9a60b29043e01880d2';
   final String baseUrl = 'https://api.themoviedb.org/3';
 

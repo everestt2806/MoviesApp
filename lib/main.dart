@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_weather_bg_null_safety/flutter_weather_bg.dart';
 import 'package:provider/provider.dart';
-import 'package:movies_app/Models/MovieProvider.dart';
-import 'package:movies_app/component/MovieList.dart';
-import 'package:movies_app/component/Banner.dart';
-import 'package:movies_app/component/SearchBar.dart';
+import 'package:movies_app/models/movie_provider.dart';
+import 'package:movies_app/screens/movie/movie_list_screen.dart';
+import 'package:movies_app/widgets//Banner.dart';
+import 'package:movies_app/widgets/SearchBar.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:flutter_weather_bg_null_safety/bg/weather_bg.dart';
 

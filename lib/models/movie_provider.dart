@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
-import 'package:movies_app/Db/DbService.dart';
-import 'package:movies_app/Models/Movie.dart';
+import 'package:movies_app/models/movie.dart';
+import 'package:movies_app/services/api_service.dart';
 
 class MovieProvider with ChangeNotifier {
-  final DbService _apiService = DbService();
+  final APIService _apiService = APIService();
   List<Movie> _movies = [];
   Movie _movie = Movie.defaultConstructor();
   List<Movie> get movies => _movies;
