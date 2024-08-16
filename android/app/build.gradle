@@ -1,8 +1,14 @@
+buildscript{
+    dependencies{
+        classpath 'com.google.gms.google-services:4.4.2'
+    }
+}
 plugins {
     id "com.android.application"
     id "kotlin-android"
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id "dev.flutter.flutter-gradle-plugin"
+    id 'com.google.gms.google-services'
 }
 
 def localProperties = new Properties()
@@ -55,4 +61,8 @@ android {
 
 flutter {
     source = "../.."
+}
+dependencies {
+    implementation platform('com.google.firebase:firebase-bom:33.1.2')
+    implementation 'com.google.firebase:firebase-analytics'
 }

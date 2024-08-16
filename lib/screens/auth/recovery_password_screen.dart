@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 
-class RegisterScreen extends StatelessWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
+class RecoveryPasswordScreen extends StatelessWidget {
+  const RecoveryPasswordScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +27,9 @@ class RegisterScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  FadeInUp(duration: Duration(milliseconds: 1000), child: Text("Register", style: TextStyle(color: Colors.white, fontSize: 40))),
+                  FadeInUp(duration: Duration(milliseconds: 1000), child: Text("Recovery", style: TextStyle(color: Colors.white, fontSize: 40))),
                   SizedBox(height: 10),
-                  FadeInUp(duration: Duration(milliseconds: 1300), child: Text("Create your account", style: TextStyle(color: Colors.white, fontSize: 18))),
+                  FadeInUp(duration: Duration(milliseconds: 1300), child: Text("Reset your password", style: TextStyle(color: Colors.white, fontSize: 18))),
                 ],
               ),
             ),
@@ -61,50 +61,20 @@ class RegisterScreen extends StatelessWidget {
                               )
                             ],
                           ),
-                          child: Column(
-                            children: [
-                              Container(
-                                padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  border: Border(
-                                    bottom: BorderSide(color: Colors.grey.shade200),
-                                  ),
-                                ),
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                    hintText: "Full Name",
-                                    hintStyle: TextStyle(color: Colors.grey),
-                                    border: InputBorder.none,
-                                  ),
-                                ),
+                          child: Container(
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(color: Colors.grey.shade200),
                               ),
-                              Container(
-                                padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  border: Border(
-                                    bottom: BorderSide(color: Colors.grey.shade200),
-                                  ),
-                                ),
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                    hintText: "Email",
-                                    hintStyle: TextStyle(color: Colors.grey),
-                                    border: InputBorder.none,
-                                  ),
-                                ),
+                            ),
+                            child: TextField(
+                              decoration: InputDecoration(
+                                hintText: "Email address",
+                                hintStyle: TextStyle(color: Colors.grey),
+                                border: InputBorder.none,
                               ),
-                              Container(
-                                padding: EdgeInsets.all(10),
-                                child: TextField(
-                                  obscureText: true,
-                                  decoration: InputDecoration(
-                                    hintText: "Password",
-                                    hintStyle: TextStyle(color: Colors.grey),
-                                    border: InputBorder.none,
-                                  ),
-                                ),
-                              ),
-                            ],
+                            ),
                           ),
                         ),
                       ),
@@ -119,7 +89,7 @@ class RegisterScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(50),
                           ),
                           child: Center(
-                            child: Text("Register", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                            child: Text("Reset Password", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
                           ),
                         ),
                       ),
@@ -130,7 +100,7 @@ class RegisterScreen extends StatelessWidget {
                           onPressed: () {
                             Navigator.pop(context);
                           },
-                          child: Text("Already have an account? Login", style: TextStyle(color: Colors.grey)),
+                          child: Text("Back to Login", style: TextStyle(color: Colors.grey)),
                         ),
                       ),
                     ],

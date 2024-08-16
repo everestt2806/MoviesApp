@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "916601440407",
+    "project_id": "movieapp-83f81",
+    "storage_bucket": "movieapp-83f81.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:916601440407:android:078e2f118dd07beffec1d2",
+        "android_client_info": {
+          "package_name": "com.everestt28.movies.movies_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqesyD6eMKtA38eYi60BoxbFLGDWehSHU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
