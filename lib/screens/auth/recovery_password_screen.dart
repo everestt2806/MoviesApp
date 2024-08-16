@@ -81,15 +81,20 @@ class RecoveryPasswordScreen extends StatelessWidget {
                       SizedBox(height: 40),
                       FadeInUp(
                         duration: Duration(milliseconds: 1600),
-                        child: MaterialButton(
-                          onPressed: () {},
-                          height: 50,
-                          color: Colors.orange[900],
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          child: Center(
-                            child: Text("Reset Password", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                        child: Container(
+                          margin: EdgeInsets.symmetric(horizontal: 50),
+                          child: MaterialButton(
+                            onPressed: () {},
+                            height: 50,
+                            minWidth: 200,
+                            color: Colors.purple[900],
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            child: Text(
+                              "Reset Password",
+                              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ),
                       ),

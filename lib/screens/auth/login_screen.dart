@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:movies_app/screens/auth/recovery_password_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -55,7 +56,7 @@ class LoginScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                           boxShadow: [
                             BoxShadow(
-                              color: Color.fromRGBO(75, 0, 130, .3),
+                              color: Color.fromRGBO(147, 112, 219, 1.0),
                               blurRadius: 20,
                               offset: Offset(0, 10),
                             )
@@ -98,29 +99,34 @@ class LoginScreen extends StatelessWidget {
                         ),
                       )),
                       SizedBox(height: 10),
-                      FadeInUp(duration: Duration(milliseconds: 1500), child: GestureDetector(onTap: (){
-                        MaterialPageRoute(
-                          builder: (Context) => Navigator.push(RecoveryPasswordScreen());
-                        )
+                      FadeInUp(duration: Duration(milliseconds: 1500), child: GestureDetector(onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => RecoveryPasswordScreen()),
+                        );
                       },
                       child: Text("Forgot Password?", style: TextStyle(color: Colors.grey),))),
                         SizedBox(height: 40,),
 
-                      FadeInUp(duration: Duration(milliseconds: 1600), child: MaterialButton(
-                          onPressed: () {},
-                          height: 50,
-                          // margin: EdgeInsets.symmetric(horizontal: 50),
-                          color: Colors.orange[900],
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50),
-
+                      FadeInUp(
+                        duration: Duration(milliseconds: 1600),
+                        child: Container(
+                          margin: EdgeInsets.symmetric(horizontal: 50),
+                          child: MaterialButton(
+                            onPressed: () {},
+                            height: 50,
+                            minWidth: 200,
+                            color: Colors.purple[900],
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            child: Text(
+                              "Login",
+                              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                            ),
                           ),
-                          // decoration: BoxDecoration(
-                          // ),
-                          child: Center(
-                            child: Text("Login", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
-                          ),
-                        )),
+                        ),
+                      ),
                       SizedBox(height: 50),
                       FadeInUp(duration: Duration(milliseconds: 1700), child: Text("Continue with", style: TextStyle(color: Colors.grey),)),
                       SizedBox(height: 10),
