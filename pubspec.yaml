@@ -35,6 +35,7 @@ dependencies:
   cached_network_image: ^3.2.3
   dots_indicator: ^2.1.0
   carousel_slider: ^4.2.1
+  font_awesome_flutter: ^10.7.0
   flutter:
     sdk: flutter
 
@@ -70,6 +71,8 @@ flutter:
         - asset: assets/fonts/Calistoga-Regular.ttf
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/img/nicolas-houdayer-lx44gM-9PlU-unsplash.jpg
+    - assets/img/lavender-flower.jpg
     - assets/banner/ChiaKhoaTramTy.jpg
     - assets/banner/ChiMeHocYeu2.jpg
     - assets/banner/DoctorStrangeInTheMultiverseOfMadness.jpg

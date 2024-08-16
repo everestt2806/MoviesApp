@@ -7,6 +7,7 @@ import 'package:movies_app/widgets//Banner.dart';
 import 'package:movies_app/widgets/SearchBar.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:flutter_weather_bg_null_safety/bg/weather_bg.dart';
+import 'package:movies_app/screens/auth/login_screen.dart';
 
 void main() {
   runApp(
@@ -18,7 +19,7 @@ void main() {
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: HomeScreen(),
+        home: LoginScreen(),
       ),
     ),
   );
