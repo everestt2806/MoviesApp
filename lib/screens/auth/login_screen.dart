@@ -1,11 +1,36 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:movies_app/screens/auth/recovery_password_screen.dart';
+import 'package:movies_app/screens/auth/register_screen.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  bool _isObscure = true;
+  int activeIndex = 0;
+  final List<String> _images = [
+    'assets/img/2798007.png',
+    'assets/img/3658959.png',
+    'assets/img/movie-masks-emblem-icon-5693166.jpg',
+    'assets/img/png-transparent-media-leisure-entertainment-couch-home-livingroom-netflix-and-chill-video-movie-azure-illustration-set-thumbnail.png'
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    Timer.periodic(Duration(seconds: 5), (timer) {
+      setState(() {
+        activeIndex = (activeIndex + 1) % _images.length;
+      });
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,23 +45,33 @@ class LoginScreen extends StatelessWidget {
             ],
           ),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 80),
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  FadeInUp(duration: Duration(milliseconds: 1000), child: Text("Login", style: TextStyle(color: Colors.white, fontSize: 40),)),
-                  SizedBox(height: 10),
-                  FadeInUp(duration: Duration(milliseconds: 1300), child: Text("Welcome to Movie App", style: TextStyle(color: Colors.white, fontSize: 18),)),
-                ],
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 10),
+              Padding(
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    FadeInUp(
+                        duration: Duration(milliseconds: 1000),
+                        child: Text(
+                          "Login",
+                          style: TextStyle(color: Colors.white, fontSize: 40),
+                        )),
+                    SizedBox(height: 10),
+                    FadeInUp(
+                        duration: Duration(milliseconds: 1300),
+                        child: Text(
+                          "Welcome to Movie App",
+                          style: TextStyle(color: Colors.white, fontSize: 18),
+                        )),
+                  ],
+                ),
               ),
-            ),
-            Expanded(
-              child: Container(
+              Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
@@ -48,66 +83,139 @@ class LoginScreen extends StatelessWidget {
                   padding: EdgeInsets.all(30),
                   child: Column(
                     children: [
-                      SizedBox(height: 60),
-                      FadeInUp(duration: Duration(milliseconds: 1400),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color.fromRGBO(147, 112, 219, 1.0),
-                              blurRadius: 20,
-                              offset: Offset(0, 10),
-                            )
-                          ],
-                        ),
-                        child: Column(
-                          children: [
-                            Container(
-                              padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                border: Border(
-                                  bottom: BorderSide(color: Colors.grey.shade200),
-                                ),
-                              ),
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  hintText: "Email or Phone number",
-                                  hintStyle: TextStyle(color: Colors.grey),
-                                  border: InputBorder.none,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                border: Border(
-                                  bottom: BorderSide(color: Colors.grey.shade200),
-                                ),
-                              ),
-                              child: TextField(
-                                obscureText: true,
-                                decoration: InputDecoration(
-                                  hintText: "Password",
-                                  hintStyle: TextStyle(color: Colors.grey),
-                                  border: InputBorder.none,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      )),
                       SizedBox(height: 10),
-                      FadeInUp(duration: Duration(milliseconds: 1500), child: GestureDetector(onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => RecoveryPasswordScreen()),
-                        );
-                      },
-                      child: Text("Forgot Password?", style: TextStyle(color: Colors.grey),))),
-                        SizedBox(height: 40,),
-
+                      FadeInUp(
+                        duration: Duration(milliseconds: 1000),
+                        child: Container(
+                          height: 150,  // Thay đổi chiều cao container
+                          width: 150,   // Thêm chiều rộng container
+                          child: Stack(
+                            children: _images.asMap().entries.map((e) {
+                              return Positioned.fill(  // Sử dụng Positioned.fill
+                                child: AnimatedOpacity(
+                                  duration: Duration(seconds: 1),
+                                  opacity: activeIndex == e.key ? 1 : 0,
+                                  child: Image.asset(
+                                    e.value,
+                                    width: 150,  // Thêm chiều rộng
+                                    height: 150, // Giữ nguyên chiều cao
+                                    fit: BoxFit.contain,  // Thay đổi từ cover sang contain
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 10,),
+                      FadeInUp(
+                          duration: Duration(milliseconds: 1400),
+                          child: Column(
+                            children: [
+                              TextField(
+                                cursorColor: Colors.black,
+                                decoration: InputDecoration(
+                                    labelText: "Email",
+                                    labelStyle: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400),
+                                    prefixIcon: Icon(
+                                      FontAwesomeIcons.user,
+                                      color: Colors.black,
+                                      size: 18,
+                                    ),
+                                    floatingLabelStyle: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 18
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Colors.grey.shade200,
+                                          width: 2),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Colors.black,
+                                          width: 1.5,
+                                        ),
+                                        borderRadius: BorderRadius.circular(10)
+                                    )
+                                ),
+                              ),
+                              SizedBox(height: 20),
+                              TextField(
+                                obscureText: _isObscure,
+                                cursorColor: Colors.black,
+                                decoration: InputDecoration(
+                                  suffixIcon: GestureDetector(
+                                    onTap: (){
+                                      setState(() {
+                                        _isObscure = !_isObscure;
+                                      });
+                                    },
+                                    child: Icon(
+                                      _isObscure ? FontAwesomeIcons.eye : FontAwesomeIcons.eyeSlash,
+                                      color: Colors.grey,
+                                      size: 17,
+                                    ),
+                                  ),
+                                  labelText: "Password",
+                                  labelStyle: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400),
+                                  prefixIcon: Icon(
+                                    FontAwesomeIcons.key,
+                                    color: Colors.black,
+                                    size: 18,
+                                  ),
+                                  floatingLabelStyle: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 18
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors.grey.shade200,
+                                        width: 2),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.black,
+                                        width: 1.5,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10)
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )),
+                      SizedBox(height: 10),
+                      FadeInUp(
+                        duration: Duration(milliseconds: 1500),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          RecoveryPasswordScreen()),
+                                );
+                              },
+                              child: Text(
+                                "Forgot Password?",
+                                style: TextStyle(color: Colors.blue[900]),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 40),
                       FadeInUp(
                         duration: Duration(milliseconds: 1600),
                         child: Container(
@@ -122,13 +230,20 @@ class LoginScreen extends StatelessWidget {
                             ),
                             child: Text(
                               "Login",
-                              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                         ),
                       ),
                       SizedBox(height: 50),
-                      FadeInUp(duration: Duration(milliseconds: 1700), child: Text("Continue with", style: TextStyle(color: Colors.grey),)),
+                      FadeInUp(
+                          duration: Duration(milliseconds: 1700),
+                          child: Text(
+                            "Continue with",
+                            style: TextStyle(color: Colors.grey),
+                          )),
                       SizedBox(height: 10),
                       Row(
                         children: [
@@ -147,7 +262,9 @@ class LoginScreen extends StatelessWidget {
                                   SizedBox(width: 10),
                                   Text(
                                     "Facebook",
-                                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ],
                               ),
@@ -165,11 +282,14 @@ class LoginScreen extends StatelessWidget {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  FaIcon(FontAwesomeIcons.github, color: Colors.white),
+                                  FaIcon(FontAwesomeIcons.github,
+                                      color: Colors.white),
                                   SizedBox(width: 10),
                                   Text(
                                     "Github",
-                                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ],
                               ),
@@ -177,12 +297,25 @@ class LoginScreen extends StatelessWidget {
                           ),
                         ],
                       ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RegisterScreen()),
+                          );
+                        },
+                        child: Text(
+                          "Register an account.",
+                          style: TextStyle(color: Colors.blue[900]),
+                        ),
+                      ),
                     ],
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

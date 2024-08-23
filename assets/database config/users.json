@@ -1,0 +1,49 @@
+{
+  "users": {
+    "user1": {
+      "username": "johndoe",
+      "password": "hashedPassword123",
+      "name": "John Doe",
+      "age": 30,
+      "email": "john.doe@example.com",
+      "avatar": "https://example.com/avatars/johndoe.jpg",
+      "favoriteMovies": [
+        "The Shawshank Redemption",
+        "Inception",
+        "The Dark Knight"
+      ],
+      "accountType": "premium",
+      "dateCreated": "2024-08-15T10:30:00Z"
+    },
+    "user2": {
+      "username": "janedoe",
+      "password": "hashedPassword456",
+      "name": "Jane Doe",
+      "age": 28,
+      "email": "jane.doe@example.com",
+      "avatar": "https://example.com/avatars/janedoe.jpg",
+      "favoriteMovies": [
+        "La La Land",
+        "Titanic",
+        "The Godfather"
+      ],
+      "accountType": "free",
+      "dateCreated": "2024-08-16T14:45:00Z"
+    },
+    "user3": {
+      "username": "bobsmith",
+      "password": "hashedPassword789",
+      "name": "Bob Smith",
+      "age": 35,
+      "email": "bob.smith@example.com",
+      "avatar": "https://example.com/avatars/bobsmith.jpg",
+      "favoriteMovies": [
+        "Pulp Fiction",
+        "The Matrix",
+        "Forrest Gump"
+      ],
+      "accountType": "premium",
+      "dateCreated": "2024-08-17T09:15:00Z"
+    }
+  }
+}

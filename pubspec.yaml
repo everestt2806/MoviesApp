@@ -32,7 +32,7 @@ dependencies:
   firebase_storage: ^11.7.5
   firebase_database: ^10.5.5
   shared_preferences: ^2.2.3
-  firebase_core: ^2.31.0
+  firebase_core: 2.31.0
   animate_do: ^3.3.4
   flutter_weather_bg_null_safety: ^1.0.0
   simple_gradient_text: ^1.3.0
@@ -83,6 +83,10 @@ flutter:
     - assets/banner/ChiMeHocYeu2.jpg
     - assets/banner/DoctorStrangeInTheMultiverseOfMadness.jpg
     - assets/banner/MyHeroAcademiaWorldHeroesMission.jpg
+    - assets/img/2798007.png
+    - assets/img/3658959.png
+    - assets/img/movie-masks-emblem-icon-5693166.jpg
+    - assets/img/png-transparent-media-leisure-entertainment-couch-home-livingroom-netflix-and-chill-video-movie-azure-illustration-set-thumbnail.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

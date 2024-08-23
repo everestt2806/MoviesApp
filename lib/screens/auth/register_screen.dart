@@ -27,9 +27,15 @@ class RegisterScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  FadeInUp(duration: Duration(milliseconds: 1000), child: Text("Register", style: TextStyle(color: Colors.white, fontSize: 40))),
+                  FadeInUp(
+                      duration: Duration(milliseconds: 1000),
+                      child: Text("Register",
+                          style: TextStyle(color: Colors.white, fontSize: 40))),
                   SizedBox(height: 10),
-                  FadeInUp(duration: Duration(milliseconds: 1300), child: Text("Create your account", style: TextStyle(color: Colors.white, fontSize: 18))),
+                  FadeInUp(
+                      duration: Duration(milliseconds: 1300),
+                      child: Text("Create your account",
+                          style: TextStyle(color: Colors.white, fontSize: 18))),
                 ],
               ),
             ),
@@ -67,7 +73,8 @@ class RegisterScreen extends StatelessWidget {
                                 padding: EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                   border: Border(
-                                    bottom: BorderSide(color: Colors.grey.shade200),
+                                    bottom:
+                                        BorderSide(color: Colors.grey.shade200),
                                   ),
                                 ),
                                 child: TextField(
@@ -82,7 +89,8 @@ class RegisterScreen extends StatelessWidget {
                                 padding: EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                   border: Border(
-                                    bottom: BorderSide(color: Colors.grey.shade200),
+                                    bottom:
+                                        BorderSide(color: Colors.grey.shade200),
                                   ),
                                 ),
                                 child: TextField(
@@ -110,19 +118,25 @@ class RegisterScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 40),
                       FadeInUp(
-                        duration: Duration(milliseconds: 1600),
-                        child: MaterialButton(
-                          onPressed: () {},
-                          height: 50,
-                          color: Colors.orange[900],
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          child: Center(
-                            child: Text("Register", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                          ),
-                        ),
-                      ),
+                          duration: Duration(milliseconds: 1600),
+                          child: Container(
+                            margin: EdgeInsets.symmetric(horizontal: 50),
+                            child: MaterialButton(
+                              onPressed: () {},
+                              height: 50,
+                              minWidth: 200,
+                              color: Colors.purple[900],
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              child: Center(
+                                child: Text("Register",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold)),
+                              ),
+                            ),
+                          )),
                       SizedBox(height: 40),
                       FadeInUp(
                         duration: Duration(milliseconds: 1700),
@@ -130,7 +144,8 @@ class RegisterScreen extends StatelessWidget {
                           onPressed: () {
                             Navigator.pop(context);
                           },
-                          child: Text("Already have an account? Login", style: TextStyle(color: Colors.grey)),
+                          child: Text("Already have an account? Login",
+                              style: TextStyle(color: Colors.grey)),
                         ),
                       ),
                     ],

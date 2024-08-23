@@ -8,8 +8,12 @@ import 'package:movies_app/widgets/SearchBar.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:flutter_weather_bg_null_safety/bg/weather_bg.dart';
 import 'package:movies_app/screens/auth/login_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 
-void main() {
+void main(){
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp();
   runApp(
     ChangeNotifierProvider(
       create: (context) => MovieProvider(),
