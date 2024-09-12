@@ -7,7 +7,7 @@ import 'package:movies_app/screens/auth/register_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:movies_app/main.dart';
+import 'package:movies_app/screens/home.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
